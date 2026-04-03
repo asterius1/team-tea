@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>VOID COUNCIL — Intelligence Dossier</title>
+
+  <meta property="og:title" content="CLASSIFIED: Void Council Meme Dossier">
+  <meta property="og:description" content="Top-secret intelligence on the ongoing tea vs coffee conflict. Handle with care.">
+  <meta name="theme-color" content="#b8212f">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Special+Elite&family=IM+Fell+English:ital@1&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --red:   #b8212f;
+      --red-bright: #ff7888;
+      --gold:  #d4a830;
+      --cream: #f0e8d0;
+      --paper: #ede0c4;
+      --dark:  #070b14;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--dark);
+      background-image:
+        radial-gradient(ellipse 130% 70% at 50% 0%, #0e1830 0%, var(--dark) 60%);
+      color: var(--cream);
+      font-family: 'Special Elite', cursive;
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* Scanlines */
+    body::before {
+      content: '';
+      position: fixed; inset: 0;
+      background: repeating-linear-gradient(
+        to bottom,
+        transparent 0px, transparent 3px,
+        rgba(0,0,0,0.07) 3px, rgba(0,0,0,0.07) 4px
+      );
+      pointer-events: none;
+      z-index: 900;
+    }
+
+    /* Vignette */
+    body::after {
+      content: '';
+      position: fixed; inset: 0;
+      background: radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.7) 100%);
+      pointer-events: none;
+      z-index: 901;
+    }
+
+    /* Corner brackets */
+    .corner {
+      position: fixed;
+      width: 48px; height: 48px;
+      border-color: rgba(212,168,48,0.2);
+      border-style: solid;
+      z-index: 10;
+    }
+    .corner-tl { top:1rem; left:1rem;   border-width:2px 0 0 2px; }
+    .corner-tr { top:1rem; right:1rem;  border-width:2px 2px 0 0; }
+    .corner-bl { bottom:1rem; left:1rem;  border-width:0 0 2px 2px; }
+    .corner-br { bottom:1rem; right:1rem; border-width:0 2px 2px 0; }
+
+    /* ── Page wrapper ───────────────────────────────────────── */
+    .page {
+      position: relative;
+      z-index: 10;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 5rem;
+    }
+
+    /* ── Back link ──────────────────────────────────────────── */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      color: rgba(240,232,208,0.45);
+      text-decoration: none;
+      font-size: 0.7rem;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      margin-bottom: 2.5rem;
+      transition: color 0.2s;
+    }
+    .back-link:hover { color: var(--red-bright); }
+
+    /* ── Header ─────────────────────────────────────────────── */
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .header-banner {
+      display: inline-block;
+      border-top: 2px solid var(--red-bright);
+      border-bottom: 1px solid rgba(255,120,136,0.35);
+      padding: 0.4rem 2rem;
+      letter-spacing: 0.35em;
+      font-size: 0.62rem;
+      color: var(--red-bright);
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+
+    .page-title {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(2.5rem, 8vw, 5rem);
+      line-height: 0.9;
+      color: var(--cream);
+      text-shadow: 3px 3px 0 var(--red), 0 0 60px rgba(240,232,208,0.06);
+      letter-spacing: 0.04em;
+    }
+    .page-title .accent { color: var(--gold); }
+
+    .page-subtitle {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      font-size: clamp(0.9rem, 2.5vw, 1.1rem);
+      color: rgba(240,232,208,0.7);
+      margin-top: 0.7rem;
+      line-height: 1.6;
+    }
+
+    /* ── Meme Grid ───────────────────────────────────────────── */
+    .meme-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 2rem;
+      margin-top: 1rem;
+    }
+
+    /* ── Meme Card ───────────────────────────────────────────── */
+    .meme-card {
+      background: var(--paper);
+      box-shadow:
+        0 8px 30px rgba(0,0,0,0.6),
+        0 0 0 1px rgba(212,168,48,0.15),
+        inset 0 0 30px rgba(0,0,0,0.05);
+      padding: 0.6rem 0.6rem 0.8rem;
+      position: relative;
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .meme-card:nth-child(odd)  { transform: rotate(-0.8deg); }
+    .meme-card:nth-child(even) { transform: rotate(0.6deg);  }
+    .meme-card:nth-child(3n)   { transform: rotate(-0.3deg); }
+    .meme-card:nth-child(5n)   { transform: rotate(1.1deg);  }
+
+    .meme-card:hover {
+      transform: rotate(0deg) translateY(-6px) scale(1.02) !important;
+      box-shadow:
+        0 20px 50px rgba(0,0,0,0.7),
+        0 0 0 2px rgba(212,168,48,0.35),
+        inset 0 0 30px rgba(0,0,0,0.05);
+      z-index: 5;
+    }
+
+    /* Tape effect on corners */
+    .meme-card::before {
+      content: '';
+      position: absolute;
+      top: -8px; left: 50%;
+      transform: translateX(-50%) rotate(-2deg);
+      width: 60px; height: 18px;
+      background: rgba(212,168,48,0.25);
+      border: 1px solid rgba(212,168,48,0.2);
+      z-index: 2;
+    }
+    .meme-card:nth-child(even)::before { transform: translateX(-50%) rotate(2deg); }
+
+    .meme-card img {
+      width: 100%;
+      display: block;
+      border: 1px solid rgba(0,0,0,0.1);
+      /* fade in as it loads */
+      opacity: 0;
+      transition: opacity 0.4s ease;
+    }
+    .meme-card img.loaded { opacity: 1; }
+
+    /* Loading skeleton */
+    .meme-card .img-wrap {
+      position: relative;
+      background: #d4c5a5;
+      min-height: 280px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .meme-card .img-wrap::after {
+      content: '';
+      position: absolute; inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      animation: skeleton-sweep 1.5s ease-in-out infinite;
+    }
+    .meme-card img.loaded ~ .img-wrap::after,
+    .meme-card .img-wrap:has(img.loaded)::after { display: none; }
+    @keyframes skeleton-sweep {
+      0%   { transform: translateX(-100%); }
+      100% { transform: translateX(100%);  }
+    }
+
+    .meme-card .card-body {
+      padding: 0.6rem 0.4rem 0.2rem;
+    }
+
+    .meme-card .caption {
+      font-family: 'Special Elite', cursive;
+      font-size: 0.82rem;
+      color: #2a1810;
+      line-height: 1.45;
+      text-align: center;
+    }
+
+    .meme-card .stamp {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 0.5rem;
+      padding-top: 0.4rem;
+      border-top: 1px solid rgba(184,33,47,0.25);
+    }
+    .meme-card .stamp-label {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.25em;
+      color: rgba(184,33,47,0.6);
+    }
+    .meme-card .stamp-num {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 0.6rem;
+      letter-spacing: 0.15em;
+      color: rgba(42,24,16,0.35);
+    }
+
+    /* ── CTA footer ─────────────────────────────────────────── */
+    .page-footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(255,120,136,0.2);
+    }
+    .page-footer p {
+      font-family: 'IM Fell English', serif;
+      font-style: italic;
+      color: rgba(240,232,208,0.6);
+      font-size: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .join-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.8rem;
+      background: #5865F2;
+      color: #fff;
+      text-decoration: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.8rem;
+      letter-spacing: 0.12em;
+      padding: 0.9rem 2.5rem;
+      border-radius: 3px;
+      box-shadow: 0 0 28px rgba(88,101,242,0.4), 0 4px 16px rgba(0,0,0,0.5);
+      transition: transform 0.18s, box-shadow 0.18s;
+    }
+    .join-btn:hover  { transform: translateY(-3px) scale(1.02); }
+    .join-btn:active { transform: translateY(1px); }
+
+    @media (max-width: 480px) {
+      .meme-grid { grid-template-columns: 1fr; gap: 2.5rem; }
+      .meme-card:nth-child(n) { transform: rotate(0deg); }
+      .meme-card:hover { transform: translateY(-4px) !important; }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="corner corner-tl"></div>
+  <div class="corner corner-tr"></div>
+  <div class="corner corner-bl"></div>
+  <div class="corner corner-br"></div>
+
+  <div class="page">
+
+    <a href="index.html" class="back-link">← Back to Recruitment</a>
+
+    <header class="page-header">
+      <div class="header-banner">Void Council &nbsp;—&nbsp; Eyes Only &nbsp;—&nbsp; April Fools 2026</div>
+      <h1 class="page-title">INTELLIGENCE <span class="accent">DOSSIER</span></h1>
+      <p class="page-subtitle">
+        Classified visual intelligence on the Quarantine threat.<br>
+        Share freely. Demoralize the coffee drinkers.
+      </p>
+    </header>
+
+    <div class="meme-grid" id="grid">
+
+      <!-- 1: Drake -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/drake/Quarantine_coffee/Void_Council_tea.png?width=500"
+            alt="Drake meme: no to Quarantine coffee, yes to Void Council tea"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">Every recruit, eventually.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit A</span>
+            <span class="stamp-num">VC-INTEL-001</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2: Gru's Plan -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/gru/Join_April_Fools_on_the_fun_team/Realise_they_serve_coffee/Realise_they_serve_coffee/Realise_they_serve_coffee.png?width=500"
+            alt="Gru plan meme about coffee team"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">A cautionary tale in four panels.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit B</span>
+            <span class="stamp-num">VC-INTEL-002</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3: Woman yelling at cat -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/woman-cat/COFFEE_IS_OBJECTIVELY_BETTER_CHANGE_MY_MIND/Void_Council_sipping_tea_unbothered.png?width=500"
+            alt="Woman yelling at cat: Quarantine vs Void Council"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">Quarantine vs Void Council. Every day.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit C</span>
+            <span class="stamp-num">VC-INTEL-003</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4: This is fine -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/fine/Quarantine_HQ_after_discovering_the_other_team_has_tea.png?width=500"
+            alt="This is fine: Quarantine HQ"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">Source: someone who was there.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit D</span>
+            <span class="stamp-num">VC-INTEL-004</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5: One does not simply -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/mordor/One_does_not_simply/beat_the_tea_drinkers.png?width=500"
+            alt="One does not simply beat the tea drinkers"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">Boromir understood the assignment.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit E</span>
+            <span class="stamp-num">VC-INTEL-005</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 6: Is this a pigeon -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/pigeon/Tea/Quarantine/Is_this_coffee~q.png?width=500"
+            alt="Is this a pigeon: Quarantine mistakes tea for coffee"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">A genuine cry for help.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit F</span>
+            <span class="stamp-num">VC-INTEL-006</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 7: Change my mind -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/cmm/Tea_is_objectively_superior_to_coffee.png?width=500"
+            alt="Change my mind: tea is superior"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">Nobody could. Nobody tried very hard.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit G</span>
+            <span class="stamp-num">VC-INTEL-007</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 8: Panik Kalm Panik -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/panik-kalm-panik/I_have_to_pick_an_April_Fools_team/I_joined_Void_Council_(tea)/We_have_been_playing_for_six_hours.png?width=500"
+            alt="Panik Kalm Panik: Void Council experience"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">An accurate timeline of events.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit H</span>
+            <span class="stamp-num">VC-INTEL-008</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 9: Fry / Not sure if -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/fry/Not_sure_if_winning_because_we_are_good/or_because_tea_gives_us_actual_superpowers.png?width=500"
+            alt="Fry not sure if: winning or tea superpowers"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">The scientists are looking into it.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit I</span>
+            <span class="stamp-num">VC-INTEL-009</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- 10: Roll Safe -->
+      <div class="meme-card">
+        <div class="img-wrap">
+          <img
+            src="https://api.memegen.link/images/rollsafe/Can_not_lose_to_Quarantine/if_you_are_already_on_Void_Council.png?width=500"
+            alt="Roll Safe: can't lose if you're on Void Council"
+            loading="lazy">
+        </div>
+        <div class="card-body">
+          <p class="caption">Flawless strategic logic.</p>
+          <div class="stamp">
+            <span class="stamp-label">⬛ Exhibit J</span>
+            <span class="stamp-num">VC-INTEL-010</span>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /.meme-grid -->
+
+    <footer class="page-footer">
+      <p>Convinced? Good. You were always going to join us.</p>
+      <a href="https://discord.com/channels/1121166847266537562/1121166847723720727/1404774473374371840"
+         class="join-btn" target="_blank" rel="noopener noreferrer">
+        <svg width="22" height="17" viewBox="0 0 71 55" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M60.1045 4.8978C55.5792 2.8214 50.7265 1.2916 45.6527 0.41542C45.5603 0.39851 45.468 0.440769 45.4204 0.525289C44.7963 1.6353 44.105 3.0834 43.6209 4.2216C38.1637 3.4046 32.7345 3.4046 27.3892 4.2216C26.905 3.0581 26.1886 1.6353 25.5617 0.525289C25.5141 0.443589 25.4218 0.401329 25.3294 0.41542C20.2584 1.2888 15.4057 2.8186 10.8776 4.8978C10.8384 4.9147 10.8048 4.9429 10.7825 4.9795C1.57795 18.7309 -0.943561 32.1443 0.293408 45.3914C0.299005 45.4562 0.335386 45.5182 0.385761 45.5576C6.45866 50.0174 12.3413 52.7249 18.1147 54.5195C18.2071 54.5477 18.305 54.5139 18.3638 54.4378C19.7295 52.5728 20.9469 50.6063 21.9907 48.5383C22.0523 48.4172 21.9935 48.2735 21.8676 48.2256C19.9366 47.4931 18.0979 46.6 16.3292 45.5858C16.1893 45.5041 16.1781 45.304 16.3068 45.2082C16.679 44.9293 17.0513 44.6391 17.4067 44.3461C17.471 44.2926 17.5606 44.2813 17.6362 44.3151C29.2558 49.6202 41.8354 49.6202 53.3179 44.3151C53.3935 44.2785 53.4831 44.2898 53.5502 44.3433C53.9057 44.6363 54.2779 44.9293 54.6529 45.2082C54.7816 45.304 54.7732 45.5041 54.6333 45.5858C52.8646 46.6197 51.0259 47.4931 49.0921 48.2228C48.9662 48.2707 48.9102 48.4172 48.9718 48.5383C50.038 50.6034 51.2554 52.5699 52.5959 54.435C52.6519 54.5139 52.7526 54.5477 52.845 54.5195C58.6464 52.7249 64.529 50.0174 70.6019 45.5576C70.6551 45.5182 70.6887 45.459 70.6943 45.3942C72.1747 30.0791 68.2147 16.7757 60.1968 4.9823C60.1772 4.9429 60.1437 4.9147 60.1045 4.8978ZM23.7259 37.3253C20.2276 37.3253 17.3451 34.1136 17.3451 30.1693C17.3451 26.225 20.1717 23.0133 23.7259 23.0133C27.308 23.0133 30.1626 26.2532 30.1066 30.1693C30.1066 34.1136 27.28 37.3253 23.7259 37.3253ZM47.3178 37.3253C43.8196 37.3253 40.9371 34.1136 40.9371 30.1693C40.9371 26.225 43.7636 23.0133 47.3178 23.0133C50.9 23.0133 53.7545 26.2532 53.6986 30.1693C53.6986 34.1136 50.9 37.3253 47.3178 37.3253Z" fill="currentColor"/>
+        </svg>
+        JOIN THE BREW
+      </a>
+    </footer>
+
+  </div><!-- /.page -->
+
+  <script>
+    /* Fade images in on load */
+    document.querySelectorAll('.meme-card img').forEach(img => {
+      if (img.complete) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load',  () => img.classList.add('loaded'));
+        img.addEventListener('error', () => {
+          img.closest('.img-wrap').style.minHeight = '120px';
+          img.style.display = 'none';
+        });
+      }
+    });
+  </script>
+</body>
+</html>
