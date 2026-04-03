@@ -852,20 +852,46 @@
 
   <script>
     /* ── Initialise mode (random on load) ───────────────────── */
-    let currentMode = Math.random() < 0.5 ? 'prestige' : 'chaos';
+    /* ── Mode selection logic ───────────────────────────────
+       Visit 1:  always chaos
+       Visit 2:  always prestige
+       Visit 3+: streak-weighted random
+                 P(switch) = streak / (streak + 1)
+                 so after N same in a row: N/(N+1) chance it flips
+    ─────────────────────────────────────────────────────── */
+    function pickMode() {
+      const visits  = parseInt(localStorage.getItem('vc_visits')   || '0');
+      const last    =          localStorage.getItem('vc_last_mode') || null;
+      const streak  = parseInt(localStorage.getItem('vc_streak')   || '0');
+
+      let mode;
+      if      (visits === 0) { mode = 'chaos';    }
+      else if (visits === 1) { mode = 'prestige'; }
+      else {
+        const pSwitch = streak / (streak + 1);
+        const other   = last === 'chaos' ? 'prestige' : 'chaos';
+        mode = (Math.random() < pSwitch) ? other : (last || 'chaos');
+      }
+
+      localStorage.setItem('vc_visits',    visits + 1);
+      localStorage.setItem('vc_last_mode', mode);
+      localStorage.setItem('vc_streak',    mode === last ? streak + 1 : 1);
+      return mode;
+    }
+
+    let currentMode = pickMode();
 
     function applyMode(mode) {
       document.body.className = mode;
       const btn = document.getElementById('mode-toggle');
-      if (mode === 'prestige') {
-        btn.textContent = '⇌ chaos mode';
-      } else {
-        btn.textContent = 'switch 2 boring mode lol';
-      }
+      btn.textContent = mode === 'prestige' ? '⇌ chaos mode' : 'switch 2 boring mode lol';
     }
 
     function toggleMode() {
-      currentMode = (currentMode === 'prestige') ? 'chaos' : 'prestige';
+      currentMode = currentMode === 'prestige' ? 'chaos' : 'prestige';
+      // keep storage in sync so streak accounts for the manual switch
+      localStorage.setItem('vc_last_mode', currentMode);
+      localStorage.setItem('vc_streak', '1');
       applyMode(currentMode);
     }
 
